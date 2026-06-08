@@ -140,6 +140,42 @@ Add follow-up actions in the same workflow, e.g.:
 
 ---
 
+## Log leads to a Google Sheet (optional)
+
+Every submission can *also* be appended to a Google Sheet — independent of
+GoHighLevel — using a small Google Apps Script Web App. The script lives in
+[`google-sheet/Code.gs`](google-sheet/Code.gs) and the sheet constant is at the
+top of the `<script>` in `index.html`:
+
+```js
+const SHEET_WEBHOOK_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+```
+
+**Setup (one time, ~2 minutes):**
+
+1. Open <https://script.google.com> → **New project**.
+2. Delete the starter code, paste in all of `google-sheet/Code.gs`, and **Save**.
+   *(The `SHEET_ID` is already set to the sheet that was created for you:
+   `MAT Digital — Website Leads`.)*
+3. **Deploy → New deployment → Web app**:
+   - **Execute as:** Me
+   - **Who has access:** Anyone
+   Deploy, then **Authorize** when prompted.
+4. Copy the **Web app URL** (ends in `/exec`).
+5. Paste it into `SHEET_WEBHOOK_URL` in `index.html`, commit, and redeploy.
+
+Each row captures: `submitted_at, name, phone, email, business_name,
+has_website, website_url, service_area, services, needs_logo, source,
+received_at`. Partial leads (after step 1) are logged too, marked
+`(Partial)` in the `source` column.
+
+> **Why text/plain + no-cors?** Apps Script Web Apps don't answer CORS
+> preflight requests, so the form sends the JSON as a `text/plain`
+> fire-and-forget request — which the browser allows without a preflight.
+> The script parses the JSON body either way.
+
+---
+
 ## Local preview
 
 It's a static file — just open `index.html` in a browser, or serve it:

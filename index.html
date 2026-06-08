@@ -756,6 +756,14 @@
 const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/jLtLRg7QIo8cck6vFH3X/webhook-trigger/6d977693-5617-4abb-9601-177ab8d052b9";
 /* ▲▲▲ ----------------------------------------------------- ▲▲▲ */
 
+/* ▼▼▼ OPTIONAL: GOOGLE SHEET LOGGING ▼▼▼
+   Every submission is also appended to a Google Sheet via a Google
+   Apps Script Web App. Paste the Web App /exec URL here.
+   Leave the placeholder to disable. See README → "Log leads to a
+   Google Sheet" for the 2-minute setup.                          */
+const SHEET_WEBHOOK_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+/* ▲▲▲ ----------------------------------------------------- ▲▲▲ */
+
 /* If true, we POST a "partial lead" (name + phone) as soon as step 1
    is completed, so a drop-off after step 1 still leaves a reachable
    lead in GHL. The full payload is sent again on final submit.      */
@@ -954,12 +962,29 @@ function postToGHL(payload) {
   });
 }
 
+/* Append to Google Sheet via Apps Script Web App.
+   Fire-and-forget; text/plain avoids a CORS preflight Apps Script
+   can't answer, and no-cors lets the request through cleanly.     */
+function postToSheet(payload) {
+  if (!SHEET_WEBHOOK_URL || SHEET_WEBHOOK_URL.indexOf('PASTE_') === 0) return;
+  try {
+    fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).catch(function () {});
+  } catch (e) { /* no-op */ }
+}
+
 /* Partial lead — fire-and-forget, never blocks the user */
 function sendPartialLead() {
   partialSent = true;
+  const partial = buildPayload(true);
   try {
-    postToGHL(buildPayload(true)).catch(() => {});
+    postToGHL(partial).catch(() => {});
   } catch (e) { /* no-op */ }
+  postToSheet(partial);
 }
 
 /* ---------- submit ---------- */
@@ -968,6 +993,7 @@ async function submitForm() {
   nextBtn.textContent = 'Sending…';
   errBanner.classList.remove('show');
   const payload = buildPayload(false);
+  postToSheet(payload);
   try {
     const res = await postToGHL(payload);
     // Inbound webhooks usually return 200; treat opaque/ok as success.
