@@ -1,0 +1,13 @@
+# Vercel
+.vercel
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# Env
+.env
+.env.*
