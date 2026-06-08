@@ -6,6 +6,8 @@
 <title>MAT Digital — Custom Website Design from $297 | 7-Day Turnaround</title>
 <meta name="description" content="MAT Digital LLC builds fully custom, SEO-ready websites — no templates. $297 to start (covers your first 60 days), then $125/mo. 7-day turnaround with a dedicated web developer." />
 <meta name="theme-color" content="#0D0E12" />
+<link rel="icon" type="image/png" href="/logo.png" />
+<link rel="apple-touch-icon" href="/logo.png" />
 
 <!-- Open Graph -->
 <meta property="og:title" content="MAT Digital — Custom Website Design from $297" />
@@ -88,6 +90,18 @@
     box-shadow: 0 6px 22px rgba(255,77,46,.4);
   }
   .logo small { display:block; font-family:'Inter'; font-weight:500; font-size:10.5px; letter-spacing:.16em; color: var(--text-dim); text-transform: uppercase; margin-top: -2px; }
+
+  /* actual brand logo on a white chip (logo art has a white background) */
+  .logo-chip { width: 50px; height: 50px; border-radius: 13px; background: #fff; padding: 5px; display: grid; place-items: center; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.28); flex: none; }
+  .logo-chip img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .logo-chip.lg { width: 64px; height: 64px; border-radius: 16px; padding: 6px; }
+
+  .nav-actions { display: flex; align-items: center; gap: 18px; }
+  .nav-phone { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; color: var(--text); transition: color .2s var(--ease); }
+  .nav-phone:hover { color: var(--lime); }
+  .nav-phone svg { color: var(--brand); flex: none; }
+  @media (max-width: 760px){ .nav-phone { display: none; } }
+
   .nav-cta {
     font-weight: 600; font-size: 14.5px; padding: 11px 20px; border-radius: 100px;
     background: var(--text); color: var(--ink);
@@ -332,11 +346,25 @@
   .cta-inner .btn { position: relative; }
 
   /* ---------- Footer ---------- */
-  footer { border-top: 1px solid var(--line); padding: 48px 0; }
-  .foot-inner { display:flex; flex-wrap:wrap; justify-content: space-between; gap: 24px; align-items:center; }
-  .foot-inner p { color: var(--text-dim); font-size: 14px; }
-  .foot-links { display:flex; gap: 24px; font-size: 14px; color: var(--text-dim); }
-  .foot-links a:hover { color: var(--text); }
+  footer { border-top: 1px solid var(--line); padding: 60px 0 36px; }
+  .foot-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; }
+  @media (max-width: 760px){ .foot-top { grid-template-columns: 1fr; gap: 34px; } }
+  .foot-brand .foot-tag { color: var(--text-dim); font-size: 15px; margin-top: 18px; max-width: 38ch; }
+  .foot-contact h4, .foot-nav h4 { font-family:'Space Grotesk'; font-size: 14px; letter-spacing: .04em; color: var(--text); margin-bottom: 16px; }
+  .contact-row { display: flex; align-items: center; gap: 11px; font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 12px; transition: color .2s var(--ease); }
+  .contact-row:hover { color: var(--brand-2); }
+  .contact-row .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--ink-3); border: 1px solid var(--line); color: var(--brand); flex: none; }
+  .contact-note { color: var(--text-dim); font-size: 13.5px; margin-top: 4px; }
+  .foot-nav { display: flex; flex-direction: column; }
+  .foot-nav a { color: var(--text-dim); font-size: 15px; margin-bottom: 11px; transition: color .2s var(--ease); }
+  .foot-nav a:hover { color: var(--text); }
+  .foot-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 44px; padding-top: 26px; border-top: 1px solid var(--line); }
+  .foot-bottom p { color: var(--text-dim); font-size: 13.5px; }
+
+  /* talk-now line under the form pitch */
+  .talk-now { margin-top: 16px; font-size: 14.5px; color: var(--text-dim); }
+  .talk-now a { color: var(--lime); font-weight: 600; }
+  .talk-now a:hover { text-decoration: underline; }
 
   /* ---------- reveal-on-scroll ---------- */
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -354,11 +382,16 @@
 <!-- ===================== NAV ===================== -->
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a class="logo" href="#top" aria-label="MAT Digital home">
-      <span class="logo-mark">M</span>
-      <span>MAT Digital<small>Custom Web Design</small></span>
+    <a class="logo" href="#top" aria-label="MAT Digital — Custom Web Design, home">
+      <span class="logo-chip"><img src="/logo.png" alt="MAT Digital" width="409" height="409" /></span>
     </a>
-    <a class="nav-cta" href="#start">Start my site →</a>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:+15615678549" aria-label="Call or text MAT Digital at (561) 567-8549">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.5 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        (561) 567-8549
+      </a>
+      <a class="nav-cta" href="#start">Start my site →</a>
+    </div>
   </div>
 </header>
 
@@ -493,6 +526,7 @@
       <div class="reassure">
         🔒 <b>Your info stays private.</b> We only use it to talk about your website — never sold, never spammed.
       </div>
+      <p class="talk-now">Prefer to talk now? <a href="tel:+15615678549">Call or text (561) 567-8549</a></p>
     </div>
 
     <!-- FORM CARD -->
@@ -677,16 +711,36 @@
 
 <!-- ===================== FOOTER ===================== -->
 <footer>
-  <div class="wrap foot-inner">
-    <a class="logo" href="#top">
-      <span class="logo-mark">M</span>
-      <span>MAT Digital<small>Custom Web Design</small></span>
-    </a>
-    <p>© <span id="year">2026</span> MAT Digital LLC · Custom website design</p>
-    <div class="foot-links">
-      <a href="#start">Get started</a>
-      <a href="#top">Back to top</a>
+  <div class="wrap foot-top">
+    <div class="foot-brand">
+      <a class="logo" href="#top" aria-label="MAT Digital home">
+        <span class="logo-chip lg"><img src="/logo.png" alt="MAT Digital" width="409" height="409" /></span>
+      </a>
+      <p class="foot-tag">Fully custom, SEO-ready websites in 7 days — built by a dedicated developer. No templates, no agency runaround.</p>
     </div>
+    <div class="foot-contact">
+      <h4>Get in touch</h4>
+      <a class="contact-row" href="tel:+15615678549">
+        <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.5 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        (561) 567-8549
+      </a>
+      <a class="contact-row" href="mailto:trevor@mat-digital.com">
+        <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m4 6 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        trevor@mat-digital.com
+      </a>
+      <p class="contact-note">Call or text — you'll reach a real human, your dedicated developer.</p>
+    </div>
+    <div class="foot-nav">
+      <h4>Links</h4>
+      <a href="#start">Get started</a>
+      <a href="#top">How it works</a>
+      <a href="#start">Pricing</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <p>© <span id="year">2026</span> MAT Digital LLC · Custom website design</p>
+    <p>Built for small businesses that mean business.</p>
   </div>
 </footer>
 
