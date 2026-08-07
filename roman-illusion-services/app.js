@@ -1,5 +1,7 @@
 const state={project:'',scope:'',timeline:''};
-let step=1;
+const reviewMode=new URLSearchParams(window.location.search).get('a2p')==='review';
+let step=reviewMode?4:1;
+if(reviewMode){state.project='Estimate request';state.scope='Not specified';state.timeline='Not specified'}
 const total=4;
 const screens=[...document.querySelectorAll('.screen')];
 const progress=[...document.querySelectorAll('#progress span')];
@@ -7,7 +9,6 @@ const label=document.getElementById('stepLabel');
 const back=document.getElementById('backBtn');
 const next=document.getElementById('nextBtn');
 
-// Load the compliance/CTA finishing styles from the same domain.
 if(!document.querySelector('link[href="/a2p.css"]')){
   const link=document.createElement('link');
   link.rel='stylesheet';
@@ -15,7 +16,6 @@ if(!document.querySelector('link[href="/a2p.css"]')){
   document.head.appendChild(link);
 }
 
-// A2P/TCPA-facing SMS disclosure. The checkbox remains optional and unchecked.
 const sms=document.getElementById('sms');
 const consentSpan=document.querySelector('.consent span');
 if(sms){
@@ -27,7 +27,6 @@ if(consentSpan){
   consentSpan.innerHTML='<strong>Optional SMS consent:</strong> By checking this box, I agree to receive recurring automated and manual SMS messages from Roman Illusion, Inc. about my estimate request, scheduling, and project-related follow-up at the mobile number provided. Message frequency varies. Message &amp; data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase. See our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.';
 }
 
-// Keep public legal links visible on the lead page for reviewers and customers.
 const footer=document.querySelector('footer');
 if(footer&&!footer.querySelector('.footer-legal')){
   const legal=document.createElement('div');
@@ -54,8 +53,8 @@ document.getElementById('zip').addEventListener('input',e=>{
 function render(){
   screens.forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===step));
   progress.forEach((p,i)=>p.classList.toggle('active',i<step));
-  label.textContent='Step '+step+' of '+total;
-  back.style.visibility=step===1?'hidden':'visible';
+  label.textContent=reviewMode&&step===4?'SMS Opt-In Form · Step 4 of 4':'Step '+step+' of '+total;
+  back.style.visibility=(step===1||reviewMode)?'hidden':'visible';
   next.textContent=step===4?'Get My Free Estimate →':'Continue →';
 }
 
@@ -75,7 +74,7 @@ function valid(){
   return true;
 }
 
-back.addEventListener('click',()=>{if(step>1){step--;render()}});
+back.addEventListener('click',()=>{if(step>1&&!reviewMode){step--;render()}});
 
 next.addEventListener('click',()=>{
   if(!valid())return;
@@ -93,9 +92,9 @@ next.addEventListener('click',()=>{
     comments:v('comments'),
     sms_consent:optedIn,
     sms_consent_timestamp:consentTimestamp,
-    sms_consent_page:window.location.origin+window.location.pathname,
+    sms_consent_page:window.location.origin+window.location.pathname+window.location.search,
     sms_disclosure_version:'2026-08-07',
-    source:'Roman Illusion Painting Ad Lander'
+    source:reviewMode?'Roman Illusion A2P Review Opt-In':'Roman Illusion Painting Ad Lander'
   };
 
   try{localStorage.setItem('roman_illusion_latest_lead',JSON.stringify(data))}catch(e){}
@@ -125,7 +124,6 @@ next.addEventListener('click',()=>{
   }
 });
 
-// Correct the deck image source if an older page revision contains the malformed URL.
 document.querySelectorAll('img').forEach(img=>{
   if(img.src.includes('04bf13a6-133d-4ca2-8a8d-fe9d33112170.png')){
     img.src='https://d2ol7oe51mr4n9.cloudfront.net/user_3Fbj8PlPgeB9T1MRKCf8bLjR8eC/04bf13a6-133d-4ca2-8a8d-fe9d33112170.png';
