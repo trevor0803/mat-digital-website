@@ -19,6 +19,7 @@ const CONTENT_TYPES = {
 const RAW_DISCLOSURE = 'I agree to receive calls and texts from Roman Illusion about my request. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. Consent is not a condition of purchase.';
 const A2P_DISCLOSURE = '<strong>Optional SMS consent:</strong> By checking this box, I agree to receive recurring automated and manual SMS messages from Roman Illusion, Inc. about my estimate request, scheduling, and project-related follow-up at the mobile number provided. Message frequency varies. Message &amp; data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase. See our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.';
 const LEGAL_LINKS = '<div class="footer-legal"><a href="/privacy">Privacy Policy</a><span>·</span><a href="/terms">Terms &amp; Conditions</a><span>·</span><span>SMS: Reply STOP to opt out · HELP for help</span></div>';
+const SOURCE_VERSION = 'a2p-20260807-1742';
 
 module.exports = async function handler(req, res) {
   const raw = Array.isArray(req.query.file) ? req.query.file[0] : req.query.file;
@@ -29,13 +30,14 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const upstreamUrl = `https://raw.githubusercontent.com/trevor0803/mat-digital-website/main/roman-illusion-services/${file}`;
+  const upstreamUrl = `https://raw.githubusercontent.com/trevor0803/mat-digital-website/main/roman-illusion-services/${file}?v=${SOURCE_VERSION}`;
 
   try {
     const upstream = await fetch(upstreamUrl, {
       headers: {
         'User-Agent': 'Roman-Illusion-Vercel-Site',
-        'Accept': '*/*'
+        'Accept': '*/*',
+        'Cache-Control': 'no-cache'
       }
     });
 
