@@ -1,1 +1,14 @@
-{"cleanUrls":true,"trailingSlash":false,"rewrites":[{"source":"/","destination":"/index-v2.html"}]}
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {"source": "/", "destination": "/api/proxy?file=index.html"},
+    {"source": "/styles.css", "destination": "/api/proxy?file=styles.css"},
+    {"source": "/a2p.css", "destination": "/api/proxy?file=a2p.css"},
+    {"source": "/app.js", "destination": "/api/proxy?file=app.js"},
+    {"source": "/privacy", "destination": "/api/proxy?file=privacy/index.html"},
+    {"source": "/privacy/", "destination": "/api/proxy?file=privacy/index.html"},
+    {"source": "/terms", "destination": "/api/proxy?file=terms/index.html"},
+    {"source": "/terms/", "destination": "/api/proxy?file=terms/index.html"}
+  ]
+}
