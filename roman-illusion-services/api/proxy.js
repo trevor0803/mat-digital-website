@@ -25,7 +25,8 @@ const TERMS_OPTOUT = '<li><strong>Opt out:</strong> Reply <strong>STOP</strong> 
 const TERMS_REJOIN = '<li><strong>Rejoining:</strong> After opting out, you may rejoin the SMS program by submitting a new website request and voluntarily checking the SMS consent box again.</li>';
 const CONSENT_SECTION = '<h2>Consent and Eligibility</h2>\n<p>You represent that the mobile number you provide belongs to you or that you are authorized to provide consent for that number. The SMS checkbox is optional and is not preselected. If you do not opt into SMS, you may still request an estimate and communicate with Roman Illusion by phone or email.</p>';
 const STANDARDS_SECTION = '<h2>Messaging Standards and Legal Compliance</h2>\n<p>Roman Illusion, Inc. intends to operate its SMS program in accordance with applicable federal and state law, carrier requirements, and applicable industry messaging standards. If any part of these SMS terms conflicts with a requirement that cannot legally be waived, the applicable law or requirement controls.</p>';
-const SOURCE_VERSION = 'a2p-20260807-1745';
+const HERO_CALL_CTA_CSS = '.hero-copy .hero-phone{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;background:#f48120;border:2px solid #f48120;border-radius:7px;color:#fff;font-size:13px;font-weight:900;letter-spacing:.01em;box-shadow:0 10px 24px rgba(244,129,32,.28);transition:background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease}.hero-copy .hero-phone:hover{background:#ff9a43;border-color:#ff9a43;color:#fff;transform:translateY(-2px);box-shadow:0 14px 30px rgba(244,129,32,.34)}@media(max-width:600px){.hero-copy .hero-phone{min-height:52px;padding:0 20px;font-size:13px}}';
+const SOURCE_VERSION = 'cta-20260807-1356';
 
 module.exports = async function handler(req, res) {
   const raw = Array.isArray(req.query.file) ? req.query.file[0] : req.query.file;
@@ -57,6 +58,10 @@ module.exports = async function handler(req, res) {
       if (!body.includes('class="footer-legal"')) {
         body = body.replace('</footer>', LEGAL_LINKS + '</footer>');
       }
+    }
+
+    if (file === 'a2p.css' && !body.includes('.hero-copy .hero-phone{')) {
+      body += '\n' + HERO_CALL_CTA_CSS + '\n';
     }
 
     if (file === 'privacy/index.html') {
