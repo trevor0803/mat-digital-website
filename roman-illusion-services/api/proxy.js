@@ -19,7 +19,13 @@ const CONTENT_TYPES = {
 const RAW_DISCLOSURE = 'I agree to receive calls and texts from Roman Illusion about my request. Message frequency varies. Message and data rates may apply. Reply STOP to opt out. Consent is not a condition of purchase.';
 const A2P_DISCLOSURE = '<strong>Optional SMS consent:</strong> By checking this box, I agree to receive recurring automated and manual SMS messages from Roman Illusion, Inc. about my estimate request, scheduling, and project-related follow-up at the mobile number provided. Message frequency varies. Message &amp; data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase. See our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.';
 const LEGAL_LINKS = '<div class="footer-legal"><a href="/privacy">Privacy Policy</a><span>·</span><a href="/terms">Terms &amp; Conditions</a><span>·</span><span>SMS: Reply STOP to opt out · HELP for help</span></div>';
-const SOURCE_VERSION = 'a2p-20260807-1742';
+const OLD_PRIVACY_NOTICE = '<div class="notice"><strong>Mobile information will not be shared with third parties or affiliates for marketing or promotional purposes.</strong> Text messaging originator opt-in data and consent will not be shared with third parties for their own marketing or promotional purposes. We may use service providers that help us operate our communications systems or deliver messages, but only as necessary to provide those services on our behalf.</div>';
+const REQUIRED_PRIVACY_NOTICE = '<div class="notice"><strong>No mobile information will be shared with third parties/affiliates for marketing/promotional purposes.</strong> Information sharing to subcontractors in support services, such as customer service, is permitted. All other use case categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</div>';
+const TERMS_OPTOUT = '<li><strong>Opt out:</strong> Reply <strong>STOP</strong> at any time to stop receiving SMS messages from this program. After you opt out, you may receive a final confirmation message.</li>';
+const TERMS_REJOIN = '<li><strong>Rejoining:</strong> After opting out, you may rejoin the SMS program by submitting a new website request and voluntarily checking the SMS consent box again.</li>';
+const CONSENT_SECTION = '<h2>Consent and Eligibility</h2>\n<p>You represent that the mobile number you provide belongs to you or that you are authorized to provide consent for that number. The SMS checkbox is optional and is not preselected. If you do not opt into SMS, you may still request an estimate and communicate with Roman Illusion by phone or email.</p>';
+const STANDARDS_SECTION = '<h2>Messaging Standards and Legal Compliance</h2>\n<p>Roman Illusion, Inc. intends to operate its SMS program in accordance with applicable federal and state law, carrier requirements, and applicable industry messaging standards. If any part of these SMS terms conflicts with a requirement that cannot legally be waived, the applicable law or requirement controls.</p>';
+const SOURCE_VERSION = 'a2p-20260807-1745';
 
 module.exports = async function handler(req, res) {
   const raw = Array.isArray(req.query.file) ? req.query.file[0] : req.query.file;
@@ -50,6 +56,19 @@ module.exports = async function handler(req, res) {
       body = body.replace(RAW_DISCLOSURE, A2P_DISCLOSURE);
       if (!body.includes('class="footer-legal"')) {
         body = body.replace('</footer>', LEGAL_LINKS + '</footer>');
+      }
+    }
+
+    if (file === 'privacy/index.html') {
+      body = body.replace(OLD_PRIVACY_NOTICE, REQUIRED_PRIVACY_NOTICE);
+    }
+
+    if (file === 'terms/index.html') {
+      if (!body.includes('<strong>Rejoining:</strong>')) {
+        body = body.replace(TERMS_OPTOUT, TERMS_OPTOUT + '\n' + TERMS_REJOIN);
+      }
+      if (!body.includes('Messaging Standards and Legal Compliance')) {
+        body = body.replace(CONSENT_SECTION, CONSENT_SECTION + '\n' + STANDARDS_SECTION);
       }
     }
 
