@@ -14,7 +14,25 @@ Example:
 
 Adapt the primary service labels to the client, but do not overload this step with every service the company offers.
 
-## Step 2 — Contact Information
+## Step 2 — Timeline
+Use a short multiple-choice timeline question.
+
+Example:
+- As Soon As Possible
+- Within 1–3 Months
+- Within 3–6 Months
+- Just Planning
+
+Keep at least 2 visible options so MAT Factory does not discard the question.
+
+## Step 3 — Project Description
+Use one short-answer field:
+
+**Tell us about your project.**
+
+A sentence or two is enough. Do not add separate project-size, condition, or additional-information questions by default. Do not add a second comments/additional-info box because this project-description field already covers that information.
+
+## Step 4 — Contact Information
 Collect only:
 - First name
 - Last name
@@ -23,13 +41,6 @@ Collect only:
 - Project ZIP code
 
 Do not use city/location instead of ZIP by default.
-
-## Step 3 — Project Description
-Use one short-answer field:
-
-**Tell us about what you're looking for.**
-
-A sentence or two is enough. Do not add separate project-size, timeline, condition, or additional-information questions by default. Do not add a second comments/additional-info box because this project-description field already covers that information.
 
 ## SMS Consent
 If SMS follow-up is used, keep the consent checkbox optional, unchecked by default, and accompanied by the required disclosure, Privacy Policy, and Terms links.
@@ -44,4 +55,4 @@ Keep the full MAT Factory brief as the source of truth. In particular:
 - Keep the form in its own labeled estimate/survey container and keep SMS consent wording directly in raw HTML.
 
 ## Default Rule
-The default contractor lead form is three steps: **Service → Contact + ZIP → Short project description**. Add more questions only when they are operationally necessary or the client explicitly requests them.
+The default contractor lead form is four steps: **Service → Timeline → Project description → Contact + ZIP**. Add more questions only when they are operationally necessary or the client explicitly requests them.
