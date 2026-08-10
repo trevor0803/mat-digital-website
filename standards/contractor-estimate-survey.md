@@ -1,72 +1,126 @@
-# Standard Contractor Estimate Survey
+# Standard Contractor Paid-Traffic Lander
 
-Use this as the default survey structure for MAT Digital contractor/home-service landing pages unless a project specifically requires something different.
+Use this as the default for MAT Digital contractor/home-service paid-traffic landers unless the client brief explicitly changes it. The full MAT Factory import rules remain the source of truth.
 
-## Step 1 — Service
-Keep the first question fast and limited to about 4–5 choices plus a catch-all option.
+## Page Structure
+Build one static HTML page in this order:
+1. Sticky header: logo, short nav, tap-to-call phone.
+2. Split hero: dark photo background, confident headline/trust points left, estimate form right and visible above the fold.
+3. Four-item trust strip.
+4. Service cards using real client/project photos.
+5. Dark Why Us block with numbered points.
+6. Asymmetric real-photo gallery; first tile spans two rows on desktop.
+7. Reviews only when the user provides or explicitly confirms real reviews. Never invent reviews, ratings, star counts, customer names, or awards.
+8. FAQ using native `<details>/<summary>` only.
+9. Final CTA.
+10. Sticky mobile CTA bar.
 
-Example:
-- Kitchen
-- Bathroom
-- Home Addition
-- Flooring / Tiling
-- Something Else
+Use one strong accent color consistently on every CTA and provide real responsive breakpoints in the page CSS.
 
-Adapt the primary service labels to the client, but do not overload this step with every service the company offers.
+## Default Lead Flow
+The default contractor lead flow is:
 
-## Step 2 — Timeline
-Use a short multiple-choice timeline question.
+**Service → Timeline → Tell us about your project → Contact + ZIP**
 
-Example:
+### Step 1 — Service
+Keep the first option question short and relevant to the client. Do not list every possible service just because the company offers it.
+
+Every option-button question must have at least two visible buttons.
+
+### Step 2 — Timeline
+Default visible options:
 - As Soon As Possible
 - Within 1–3 Months
 - Within 3–6 Months
 - Just Planning
 
-Keep at least 2 visible options so MAT Factory does not discard the question.
+### Step 3 — Project Description
+Use one short-answer/notes field with an id and matching label, such as:
 
-## Step 3 — Project Description
-Use one short-answer field:
+**Tell us about your project**
 
-**Tell us about your project.**
+Do not add a second comments/additional-information field by default.
 
-A sentence or two is enough. Do not add separate project-size, condition, or additional-information questions by default. Do not add a second comments/additional-info box because this project-description field already covers that information.
-
-## Step 4 — Contact Information
-Use a follow-up-oriented heading such as:
-
-**How should [Business] contact you about your project?**
-
+### Step 4 — Contact Information
 Collect only:
-- First name
-- Last name
-- Mobile phone
-- Email
-- Project ZIP code
+- First name — `id="firstName"`
+- Last name — `id="lastName"`
+- Mobile phone — `id="phone"`
+- Email — `id="email"`
+- Project ZIP code — use a clear id such as `projectZip`
 
-Do not use city/location instead of ZIP by default.
+Use ZIP rather than city/location by default.
 
 ## Estimate Request Wording
-The form requests an estimate or consultation; it does not imply the visitor receives an instant estimate after submission.
+The visitor is requesting an estimate/follow-up. Do not imply that an instant estimate is delivered after submission unless that workflow truly exists.
 
-Use wording such as:
-- **Request a Free Estimate** for page CTAs.
-- **Submit My Request** for the final form button.
-- **How should [Business] contact you about your project?** for the contact step.
+Preferred CTA language:
+- **Request a Free Estimate**
+- **Request Estimate**
+- **Submit My Request**
 
-Avoid wording such as **Get My Estimate**, **Receive My Estimate**, or **Where should we send your estimate?** unless the workflow actually delivers an estimate immediately after submission.
+Avoid **Get My Estimate**, **Receive My Estimate**, and **Where should we send your estimate?** when KCN/the client is actually following up later.
+
+## Static HTML / Import Safety
+- Static HTML only. No React, Vue, client-rendered shells, or JavaScript-dependent UI.
+- No critical `<script>` tags. MAT Factory strips scripts.
+- Put the complete survey/form in one clearly labelled container such as `id="estimate"`, with nothing unrelated inside it.
+- Keep that form container limited to the form itself and roughly under half the page.
+- Do not wire form submission; MAT Factory replaces/rewires the survey after import.
+- Contact ids must literally identify the fields: `firstName`, `lastName`, `phone`, `email`.
+- Extra fields need an id and matching `<label for>`.
+
+## Survey Option Rules
+For every multiple-choice survey question:
+- Put the question text in `<h1>`–`<h4>`.
+- Keep question text under 140 characters.
+- Provide at least 2 visible `<button>` options or the question is silently discarded.
+- Keep visible option labels under 80 characters.
+- Visible button text is the answer recorded by MAT Factory; do not depend on `data-value`.
+- Do not start option labels with `continue`, `next`, `back`, `submit`, `finish`, `send`, `start`, `→`, or `←`.
+- Maximum 8 survey questions.
+- Keep navigation controls structurally separate from option containers.
 
 ## SMS Consent
-If SMS follow-up is used, keep the consent checkbox optional, unchecked by default, and accompanied by the required disclosure, Privacy Policy, and Terms links.
+Keep the full SMS disclosure in raw HTML inside `label class="consent"`.
 
-## MAT Factory Import Rules
-Keep the full MAT Factory brief as the source of truth. In particular:
-- Every option-button question needs at least 2 options or the question is discarded.
-- The importer records each button's visible text as the answer; do not depend on `data-value`.
-- Option labels must not begin with continue, next, back, submit, finish, send, start, →, or ←.
-- Questions stay under 140 characters and option labels under 80 characters.
-- Contact field IDs must clearly contain firstName/fname, lastName/lname, phone/mobile/tel, and email.
-- Keep the form in its own labeled estimate/survey container and keep SMS consent wording directly in raw HTML.
+The checkbox should be optional and unchecked by default unless a specific campaign requires otherwise. Include:
+- The business name and message purpose.
+- Recurring automated/manual SMS wording when applicable.
+- Message frequency varies.
+- Message and data rates may apply.
+- Reply STOP to opt out.
+- Reply HELP for help.
+- Consent is not a condition of purchase.
+- Links to Privacy Policy and Terms.
 
-## Default Rule
-The default contractor lead form is four steps: **Service → Timeline → Project description → Contact + ZIP**. Add more questions only when they are operationally necessary or the client explicitly requests them.
+Use relative policy URLs (`/privacy`, `/terms`) when the lander and legal pages live in the same project/domain.
+
+## Imported Factory Form Styling
+The lander must style both the raw mockup and the real MAT Factory component. Prefix every Factory selector with the form container id so the rules win against Factory defaults.
+
+Required selectors:
+- `#estimate .fx-card`
+- `#estimate .fx-prog`
+- `#estimate .fx-prog span.on`
+- `#estimate .fx-step`
+- `#estimate .fx-card h3`
+- `#estimate .fx-opts`
+- `#estimate .fx-opt`
+- `#estimate .fx-form`
+- `#estimate .fx-field input, #estimate .fx-field textarea`
+- `#estimate .fx-btn`
+- `#estimate .fx-consent`
+- `#estimate .fx-back`
+
+Match these to the raw card: radius, shadow, borders, typography, spacing and CTA shape/color.
+
+## Images
+- Use real client/project imagery whenever available.
+- Supported extensions: `.jpg`, `.jpeg`, `.png`, `.webp`, `.avif`, `.gif`, `.svg`.
+- Maximum 30 images per page.
+- Avoid tiny decorative files under 900 bytes.
+- Do not present stock or generated imagery as completed client work.
+
+## Production Requirement
+The import URL must be publicly reachable. Use a public production/custom-domain URL, not an SSO-protected preview URL.
