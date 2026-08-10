@@ -56,7 +56,9 @@ The public lander should look and feel like a real multi-step survey rather than
 
 Default behavior:
 - Show one survey step at a time.
-- Provide visible **Next** and **Back** navigation between steps.
+- Selecting an answer on a multiple-choice step should immediately advance to the next step. Do not require a separate Next click after an option is chosen.
+- Use **Next** only for written-response/detail steps that need the visitor to finish typing before moving on.
+- Provide **Back** navigation on steps after the first.
 - Keep navigation controls structurally outside the option-button containers.
 - Do not use JavaScript for the stepper. Use CSS/native HTML behavior such as fragment targets, `:target`, `:has()`, radio/checkbox state, or another import-safe approach.
 - All questions, option buttons, contact fields and consent text must still exist directly in the raw HTML so MAT Factory can parse them even when only one step is visible in the browser.
