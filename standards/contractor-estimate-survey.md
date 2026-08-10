@@ -33,6 +33,10 @@ Use one short-answer field:
 A sentence or two is enough. Do not add separate project-size, condition, or additional-information questions by default. Do not add a second comments/additional-info box because this project-description field already covers that information.
 
 ## Step 4 — Contact Information
+Use a follow-up-oriented heading such as:
+
+**How should [Business] contact you about your project?**
+
 Collect only:
 - First name
 - Last name
@@ -41,6 +45,16 @@ Collect only:
 - Project ZIP code
 
 Do not use city/location instead of ZIP by default.
+
+## Estimate Request Wording
+The form requests an estimate or consultation; it does not imply the visitor receives an instant estimate after submission.
+
+Use wording such as:
+- **Request a Free Estimate** for page CTAs.
+- **Submit My Request** for the final form button.
+- **How should [Business] contact you about your project?** for the contact step.
+
+Avoid wording such as **Get My Estimate**, **Receive My Estimate**, or **Where should we send your estimate?** unless the workflow actually delivers an estimate immediately after submission.
 
 ## SMS Consent
 If SMS follow-up is used, keep the consent checkbox optional, unchecked by default, and accompanied by the required disclosure, Privacy Policy, and Terms links.
