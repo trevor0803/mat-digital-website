@@ -19,6 +19,7 @@ cp kcn-construction/terms.html terms.html
 rm -rf estimate
 mkdir -p estimate
 cp kcn-construction-survey-lander/index.html estimate/index.html
+node scripts/apply-standard-estimate-survey.js estimate/index.html
 
 # The full KCN site is a history-based SPA. Create physical entry points so
 # direct visits and refreshes work on every public route without changing the URL.
