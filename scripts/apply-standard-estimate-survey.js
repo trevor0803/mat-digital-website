@@ -18,6 +18,13 @@ html = html.replace(
   '.options button:after{content:"→";color:var(--blue);font-size:16px}'
 );
 
+// Keep estimate language accurate: the form requests follow-up; it does not deliver an instant estimate.
+html = html
+  .replace(/Get My Free Estimate →/g, 'Request a Free Estimate →')
+  .replace(/>Free Estimate</g, '>Request Estimate<')
+  .replace('Free project estimate', 'Request a free estimate')
+  .replace('Start with a free project estimate. No complicated booking process.', 'Request a free project estimate. No complicated booking process.');
+
 const surveyMarkup = `<div class="survey-progress" id="progress"><span class="active"></span><span></span><span></span><span></span></div>
     <div class="survey-step-label" id="stepLabel">Step 1 of 4</div>
     <form id="estimateForm">
@@ -48,8 +55,8 @@ const surveyMarkup = `<div class="survey-progress" id="progress"><span class="ac
         <div class="field"><label for="projectRequest">Project Details</label><textarea id="projectRequest" name="projectRequest" rows="5" placeholder="Tell us what you want to update, build, or change." required></textarea></div>
       </div>
       <div class="screen" data-step="4">
-        <h2>Where should KCN send your estimate details?</h2>
-        <p>Enter the best contact information for your project.</p>
+        <h2>How should KCN contact you about your project?</h2>
+        <p>Enter the best contact information for KCN to follow up with you.</p>
         <div class="two"><div class="field"><label for="firstName">First Name</label><input id="firstName" name="firstName" autocomplete="given-name" placeholder="First name" required></div><div class="field"><label for="lastName">Last Name</label><input id="lastName" name="lastName" autocomplete="family-name" placeholder="Last name" required></div></div>
         <div class="two"><div class="field"><label for="phone">Mobile Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(703) 555-1234" required></div><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required></div></div>
         <div class="field"><label for="projectZip">Project ZIP Code</label><input id="projectZip" name="projectZip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="22101" required></div>
@@ -78,7 +85,7 @@ const surveyScript = `<script>
     progress.forEach(function(p,i){p.classList.toggle('active',i<step)});
     label.textContent='Step '+step+' of '+total;
     back.style.visibility=step===1?'hidden':'visible';
-    next.textContent=step===total?'Get My Free Estimate →':'Continue →';
+    next.textContent=step===total?'Submit My Request →':'Continue →';
   }
   function validateContact(){
     var ids=['firstName','lastName','phone','email','projectZip'];
@@ -143,4 +150,4 @@ if (!scriptPattern.test(html)) {
 html = html.replace(scriptPattern, surveyScript);
 
 fs.writeFileSync(target, html);
-console.log('Standard 4-step estimate survey applied to '+target+'.');
+console.log('Standard 4-step estimate request survey applied to '+target+'.');
