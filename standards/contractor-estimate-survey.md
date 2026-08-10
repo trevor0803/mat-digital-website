@@ -51,6 +51,17 @@ Collect only:
 
 Use ZIP rather than city/location by default.
 
+## Live Mock Survey Behavior
+The public lander should look and feel like a real multi-step survey rather than showing every step stacked at once.
+
+Default behavior:
+- Show one survey step at a time.
+- Provide visible **Next** and **Back** navigation between steps.
+- Keep navigation controls structurally outside the option-button containers.
+- Do not use JavaScript for the stepper. Use CSS/native HTML behavior such as fragment targets, `:target`, `:has()`, radio/checkbox state, or another import-safe approach.
+- All questions, option buttons, contact fields and consent text must still exist directly in the raw HTML so MAT Factory can parse them even when only one step is visible in the browser.
+- The live mockup does not need to submit; MAT Factory replaces/rewires the form after import.
+
 ## Estimate Request Wording
 The visitor is requesting an estimate/follow-up. Do not imply that an instant estimate is delivered after submission unless that workflow truly exists.
 
@@ -59,7 +70,9 @@ Preferred CTA language:
 - **Request Estimate**
 - **Submit My Request**
 
-Avoid **Get My Estimate**, **Receive My Estimate**, and **Where should we send your estimate?** when KCN/the client is actually following up later.
+Avoid **Get My Estimate**, **Receive My Estimate**, and **Where should we send your estimate?** when the client is actually following up later.
+
+Hero headlines should describe the service or customer need accurately. Do not imply that planning, pricing, scheduling, project organization, approval, or another outcome has already happened before the contractor reviews the lead.
 
 ## Static HTML / Import Safety
 - Static HTML only. No React, Vue, client-rendered shells, or JavaScript-dependent UI.
