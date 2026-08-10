@@ -1,52 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "buildCommand": null,
+  "buildCommand": "sh scripts/vercel-project-build.sh",
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
-    {
-      "src": "^/estimate/?$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "dest": "/kcn-construction-survey-lander/index.html"
-    },
-    {
-      "src": "^/privacy/?$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "dest": "/kcn-construction/privacy.html"
-    },
-    {
-      "src": "^/terms/?$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "dest": "/kcn-construction/terms.html"
-    },
-    {
-      "src": "^/.*$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "dest": "/kcn-construction/index.html"
-    },
-    {
-      "src": "^/estimate/?$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "dest": "/kcn-construction-survey-lander/index.html"
-    },
-    {
-      "src": "^/privacy/?$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "dest": "/kcn-construction/privacy.html"
-    },
-    {
-      "src": "^/terms/?$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "dest": "/kcn-construction/terms.html"
-    },
-    {
-      "src": "^/.*$",
-      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "dest": "/kcn-construction/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
