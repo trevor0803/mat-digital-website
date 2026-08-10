@@ -13,6 +13,11 @@ html = html.replace(
   '.survey-progress{display:grid;grid-template-columns:repeat(3,1fr);'
 );
 
+html = html.replace(
+  '.options button span{color:var(--blue);font-size:16px}',
+  '.options button:after{content:"→";color:var(--blue);font-size:16px}'
+);
+
 const surveyMarkup = `<div class="survey-progress" id="progress"><span class="active"></span><span></span><span></span></div>
     <div class="survey-step-label" id="stepLabel">Step 1 of 3</div>
     <form id="estimateForm">
@@ -20,19 +25,14 @@ const surveyMarkup = `<div class="survey-progress" id="progress"><span class="ac
         <h2>What type of project are you planning?</h2>
         <p>Choose the closest match.</p>
         <div class="options" data-field="projectType">
-          <button type="button" data-value="Kitchen">Kitchen <span>→</span></button>
-          <button type="button" data-value="Bathroom">Bathroom <span>→</span></button>
-          <button type="button" data-value="Home Addition">Home Addition <span>→</span></button>
-          <button type="button" data-value="Flooring / Tiling">Flooring / Tiling <span>→</span></button>
-          <button type="button" data-value="Something Else">Something Else <span>→</span></button>
+          <button type="button">Kitchen</button>
+          <button type="button">Bathroom</button>
+          <button type="button">Home Addition</button>
+          <button type="button">Flooring / Tiling</button>
+          <button type="button">Something Else</button>
         </div>
       </div>
       <div class="screen" data-step="2">
-        <h2>Tell us about what you're looking for.</h2>
-        <p>A sentence or two is perfect.</p>
-        <div class="field"><label for="projectRequest">Project Details</label><textarea id="projectRequest" name="projectRequest" rows="5" placeholder="Tell us what you want to update, build, or change." required></textarea></div>
-      </div>
-      <div class="screen" data-step="3">
         <h2>Where should KCN send your estimate details?</h2>
         <p>Enter the best contact information for your project.</p>
         <div class="two"><div class="field"><label for="firstName">First Name</label><input id="firstName" name="firstName" autocomplete="given-name" placeholder="First name" required></div><div class="field"><label for="lastName">Last Name</label><input id="lastName" name="lastName" autocomplete="family-name" placeholder="Last name" required></div></div>
@@ -40,6 +40,11 @@ const surveyMarkup = `<div class="survey-progress" id="progress"><span class="ac
         <div class="field"><label for="projectZip">Project ZIP Code</label><input id="projectZip" name="projectZip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="22101" required></div>
         <label class="consent"><input type="checkbox" id="sms" name="smsConsent" value="yes"><span>By checking this box, I consent to receive recurring SMS messages from KCN Construction at the mobile number provided regarding my estimate request, scheduling, appointment reminders, project updates, and customer support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase. See <a href="https://kcn-construction-dmv.vercel.app/terms" target="_blank" rel="noopener">Terms & SMS Terms</a> and <a href="https://kcn-construction-dmv.vercel.app/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
         <p class="form-note">SMS consent is optional and the checkbox is not preselected. You can request an estimate without agreeing to text messages.</p>
+      </div>
+      <div class="screen" data-step="3">
+        <h2>Tell us about what you're looking for.</h2>
+        <p>A sentence or two is perfect.</p>
+        <div class="field"><label for="projectRequest">Project Details</label><textarea id="projectRequest" name="projectRequest" rows="5" placeholder="Tell us what you want to update, build, or change." required></textarea></div>
       </div>
       <div class="survey-nav"><button class="back" id="backBtn" type="button" style="visibility:hidden">← Back</button><button class="next" id="nextBtn" type="button">Continue →</button></div>
     </form>`;
@@ -65,23 +70,29 @@ const surveyScript = `<script>
     back.style.visibility=step===1?'hidden':'visible';
     next.textContent=step===total?'Get My Free Estimate →':'Continue →';
   }
+  function validateContact(){
+    var ids=['firstName','lastName','phone','email','projectZip'];
+    for(var i=0;i<ids.length;i++){
+      var el=document.getElementById(ids[i]);
+      if(!el.value.trim()){el.focus();return false;}
+    }
+    var zip=document.getElementById('projectZip');
+    if(!/^\\d{5}$/.test(zip.value.trim())){zip.focus();return false;}
+    return true;
+  }
   function advance(){
     if(step===1){
       if(!state.projectType){return;}
       step=2;render();return;
     }
     if(step===2){
-      var request=document.getElementById('projectRequest');
-      if(!request.value.trim()){request.focus();return;}
+      if(!validateContact()){return;}
       step=3;render();return;
     }
-    var ids=['firstName','lastName','phone','email','projectZip'];
-    for(var i=0;i<ids.length;i++){
-      var el=document.getElementById(ids[i]);
-      if(!el.value.trim()){el.focus();return;}
-    }
+    var request=document.getElementById('projectRequest');
+    if(!request.value.trim()){request.focus();return;}
+    if(!validateContact()){step=2;render();return;}
     var zip=document.getElementById('projectZip');
-    if(!/^\\d{5}$/.test(zip.value.trim())){zip.focus();return;}
     var subject='KCN Construction Estimate Request';
     var body=[
       'Name: '+document.getElementById('firstName').value+' '+document.getElementById('lastName').value,
@@ -89,7 +100,7 @@ const surveyScript = `<script>
       'Email: '+document.getElementById('email').value,
       'Project ZIP: '+zip.value,
       'Project type: '+(state.projectType||''),
-      'Looking for: '+document.getElementById('projectRequest').value,
+      'Looking for: '+request.value,
       'SMS consent: '+(document.getElementById('sms').checked?'YES':'NO')
     ].join('\\n');
     window.location.href='mailto:info@kcnconstructiondmv.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
@@ -99,7 +110,7 @@ const surveyScript = `<script>
       btn.addEventListener('click',function(){
         group.querySelectorAll('button').forEach(function(b){b.classList.remove('selected')});
         btn.classList.add('selected');
-        state[group.getAttribute('data-field')]=btn.getAttribute('data-value')||btn.textContent.replace('→','').trim();
+        state[group.getAttribute('data-field')]=btn.textContent.trim();
         if(step===1){step=2;render();}
       });
     });
