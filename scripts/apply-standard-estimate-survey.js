@@ -9,8 +9,8 @@ if (!target) {
 let html = fs.readFileSync(target, 'utf8');
 
 html = html.replace(
-  '.survey-progress{display:grid;grid-template-columns:repeat(4,1fr);',
-  '.survey-progress{display:grid;grid-template-columns:repeat(3,1fr);'
+  /\.survey-progress\{display:grid;grid-template-columns:repeat\(\d+,1fr\);/,
+  '.survey-progress{display:grid;grid-template-columns:repeat(4,1fr);'
 );
 
 html = html.replace(
@@ -18,11 +18,11 @@ html = html.replace(
   '.options button:after{content:"→";color:var(--blue);font-size:16px}'
 );
 
-const surveyMarkup = `<div class="survey-progress" id="progress"><span class="active"></span><span></span><span></span></div>
-    <div class="survey-step-label" id="stepLabel">Step 1 of 3</div>
+const surveyMarkup = `<div class="survey-progress" id="progress"><span class="active"></span><span></span><span></span><span></span></div>
+    <div class="survey-step-label" id="stepLabel">Step 1 of 4</div>
     <form id="estimateForm">
       <div class="screen active" data-step="1">
-        <h2>What type of project are you planning?</h2>
+        <h2>What service are you looking for?</h2>
         <p>Choose the closest match.</p>
         <div class="options" data-field="projectType">
           <button type="button">Kitchen</button>
@@ -33,6 +33,21 @@ const surveyMarkup = `<div class="survey-progress" id="progress"><span class="ac
         </div>
       </div>
       <div class="screen" data-step="2">
+        <h2>When are you looking to start?</h2>
+        <p>Choose the closest timeframe.</p>
+        <div class="options" data-field="timeline">
+          <button type="button">As Soon As Possible</button>
+          <button type="button">Within 1–3 Months</button>
+          <button type="button">Within 3–6 Months</button>
+          <button type="button">Just Planning</button>
+        </div>
+      </div>
+      <div class="screen" data-step="3">
+        <h2>Tell us about your project.</h2>
+        <p>A sentence or two is perfect.</p>
+        <div class="field"><label for="projectRequest">Project Details</label><textarea id="projectRequest" name="projectRequest" rows="5" placeholder="Tell us what you want to update, build, or change." required></textarea></div>
+      </div>
+      <div class="screen" data-step="4">
         <h2>Where should KCN send your estimate details?</h2>
         <p>Enter the best contact information for your project.</p>
         <div class="two"><div class="field"><label for="firstName">First Name</label><input id="firstName" name="firstName" autocomplete="given-name" placeholder="First name" required></div><div class="field"><label for="lastName">Last Name</label><input id="lastName" name="lastName" autocomplete="family-name" placeholder="Last name" required></div></div>
@@ -40,11 +55,6 @@ const surveyMarkup = `<div class="survey-progress" id="progress"><span class="ac
         <div class="field"><label for="projectZip">Project ZIP Code</label><input id="projectZip" name="projectZip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="22101" required></div>
         <label class="consent"><input type="checkbox" id="sms" name="smsConsent" value="yes"><span>By checking this box, I consent to receive recurring SMS messages from KCN Construction at the mobile number provided regarding my estimate request, scheduling, appointment reminders, project updates, and customer support. Message frequency varies. Message and data rates may apply. Reply STOP to opt out and HELP for help. Consent is not a condition of purchase. See <a href="https://kcn-construction-dmv.vercel.app/terms" target="_blank" rel="noopener">Terms & SMS Terms</a> and <a href="https://kcn-construction-dmv.vercel.app/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
         <p class="form-note">SMS consent is optional and the checkbox is not preselected. You can request an estimate without agreeing to text messages.</p>
-      </div>
-      <div class="screen" data-step="3">
-        <h2>Tell us about what you're looking for.</h2>
-        <p>A sentence or two is perfect.</p>
-        <div class="field"><label for="projectRequest">Project Details</label><textarea id="projectRequest" name="projectRequest" rows="5" placeholder="Tell us what you want to update, build, or change." required></textarea></div>
       </div>
       <div class="survey-nav"><button class="back" id="backBtn" type="button" style="visibility:hidden">← Back</button><button class="next" id="nextBtn" type="button">Continue →</button></div>
     </form>`;
@@ -57,7 +67,7 @@ html = html.replace(surveyPattern, surveyMarkup);
 
 const surveyScript = `<script>
 (function(){
-  var step=1,total=3,state={};
+  var step=1,total=4,state={};
   var screens=[].slice.call(document.querySelectorAll('.screen'));
   var progress=[].slice.call(document.querySelectorAll('#progress span'));
   var label=document.getElementById('stepLabel');
@@ -86,12 +96,16 @@ const surveyScript = `<script>
       step=2;render();return;
     }
     if(step===2){
-      if(!validateContact()){return;}
+      if(!state.timeline){return;}
       step=3;render();return;
     }
+    if(step===3){
+      var request=document.getElementById('projectRequest');
+      if(!request.value.trim()){request.focus();return;}
+      step=4;render();return;
+    }
+    if(!validateContact()){return;}
     var request=document.getElementById('projectRequest');
-    if(!request.value.trim()){request.focus();return;}
-    if(!validateContact()){step=2;render();return;}
     var zip=document.getElementById('projectZip');
     var subject='KCN Construction Estimate Request';
     var body=[
@@ -100,7 +114,8 @@ const surveyScript = `<script>
       'Email: '+document.getElementById('email').value,
       'Project ZIP: '+zip.value,
       'Project type: '+(state.projectType||''),
-      'Looking for: '+request.value,
+      'Timeline: '+(state.timeline||''),
+      'Project details: '+request.value,
       'SMS consent: '+(document.getElementById('sms').checked?'YES':'NO')
     ].join('\\n');
     window.location.href='mailto:info@kcnconstructiondmv.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
@@ -111,7 +126,7 @@ const surveyScript = `<script>
         group.querySelectorAll('button').forEach(function(b){b.classList.remove('selected')});
         btn.classList.add('selected');
         state[group.getAttribute('data-field')]=btn.textContent.trim();
-        if(step===1){step=2;render();}
+        if(step===1 || step===2){step++;render();}
       });
     });
   });
@@ -128,4 +143,4 @@ if (!scriptPattern.test(html)) {
 html = html.replace(scriptPattern, surveyScript);
 
 fs.writeFileSync(target, html);
-console.log('Standard 3-step estimate survey applied to '+target+'.');
+console.log('Standard 4-step estimate survey applied to '+target+'.');
