@@ -8,103 +8,103 @@
   "rewrites": [
     {
       "source": "/estimate",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction-survey-lander/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction-survey-lander"
     },
     {
       "source": "/privacy",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/privacy.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction/privacy"
     },
     {
       "source": "/terms",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/terms.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction/terms"
     },
     {
       "source": "/",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/services",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/services/:path*",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/projects",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/about",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/service-areas",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/contact",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/estimate",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction-survey-lander/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction-survey-lander"
     },
     {
       "source": "/privacy",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/privacy.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction/privacy"
     },
     {
       "source": "/terms",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/terms.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction/terms"
     },
     {
       "source": "/",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/services",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/services/:path*",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/projects",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/about",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/service-areas",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     },
     {
       "source": "/contact",
-      "has": [{ "type": "header", "key": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
-      "destination": "/kcn-construction/index.html"
+      "has": [{ "type": "host", "value": "kcn-construction-dmv-trevor-6596s-projects.vercel.app" }],
+      "destination": "/kcn-construction"
     }
   ],
   "headers": [
