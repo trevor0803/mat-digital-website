@@ -15,11 +15,11 @@ cp kcn-construction/index.html index.html
 cp kcn-construction/privacy.html privacy.html
 cp kcn-construction/terms.html terms.html
 
-# MAT Factory-ready landing survey on the same project/domain.
+# MAT Factory-ready paid-traffic lander. The source is already static HTML;
+# do not transform it or inject JavaScript during the build.
 rm -rf estimate
 mkdir -p estimate
 cp kcn-construction-survey-lander/index.html estimate/index.html
-node scripts/apply-standard-estimate-survey.js estimate/index.html
 
 # The full KCN site is a history-based SPA. Create physical entry points so
 # direct visits and refreshes work on every public route without changing the URL.
