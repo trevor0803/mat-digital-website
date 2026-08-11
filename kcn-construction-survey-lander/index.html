@@ -41,10 +41,14 @@
   .hero-copy h1{order:2}
   .hero-copy .hero-lead{order:3}
   #estimate{order:4}
-  .hero-copy .hero-trust{order:5;margin:2px 0 0;max-width:none}
-  .hero-copy .hero-actions{order:6}
-  .hero-trust span{font-size:13.5px;line-height:1.35;padding:13px 14px;
-    background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.24)}
+  /* The four checkmark rectangles are hidden on mobile, not restyled. The
+     trust strip further down the page already states the same four claims —
+     30+ years, the DMV service area, full-service scope, free estimates — so on
+     a phone they were a screenful of duplication sitting between the form and
+     everything else. They stay on desktop, where they fill the column beside
+     the form instead of pushing content down. */
+  .hero-copy .hero-trust{display:none}
+  .hero-copy .hero-actions{order:5}
 }
 </style>
 </head>
