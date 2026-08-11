@@ -5,6 +5,26 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/estimate",
+      "has": [{ "type": "host", "value": "kcnconstruction.com" }],
+      "destination": "https://get.kcnconstruction.com",
+      "permanent": false
+    },
+    {
+      "source": "/estimate",
+      "has": [{ "type": "host", "value": "www.kcnconstruction.com" }],
+      "destination": "https://get.kcnconstruction.com",
+      "permanent": false
+    },
+    {
+      "source": "/estimate",
+      "has": [{ "type": "host", "value": "kcn-construction-dmv.vercel.app" }],
+      "destination": "https://get.kcnconstruction.com",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
