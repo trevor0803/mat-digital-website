@@ -74,9 +74,10 @@ function valid(){
   return true;
 }
 
-back.addEventListener('click',()=>{if(step>1&&!reviewMode){step--;render()}});
+back.addEventListener('click',event=>{event.preventDefault();if(step>1&&!reviewMode){step--;render()}});
 
-next.addEventListener('click',()=>{
+next.addEventListener('click',event=>{
+  event.preventDefault();
   if(!valid())return;
   if(step<4){step++;render();return}
 
@@ -89,7 +90,7 @@ next.addEventListener('click',()=>{
     phone:v('phone'),
     email:v('email'),
     zip:v('zip'),
-    comments:v('comments'),
+    comments:'',
     sms_consent:optedIn,
     sms_consent_timestamp:consentTimestamp,
     sms_consent_page:window.location.origin+window.location.pathname+window.location.search,
