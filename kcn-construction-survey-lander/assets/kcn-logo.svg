@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" role="img" aria-labelledby="title desc">
+  <title id="title">KCN Construction LLC</title>
+  <desc id="desc">KCN Construction LLC wordmark</desc>
+  <rect width="420" height="120" rx="12" fill="#0b1f33"/>
+  <path d="M26 91V28h13v25l22-25h17L52 57l28 34H63L43 66l-4 5v20H26zm65 0V28h13l27 40V28h14v63h-13l-27-40v40H91zm72-31c0-20 12-33 31-33 14 0 25 8 29 20l-13 5c-2-8-8-12-16-12-10 0-17 8-17 20s7 20 17 20c8 0 14-4 17-12l13 5c-5 13-15 20-30 20-19 0-31-13-31-33z" fill="#fff"/>
+  <rect x="244" y="29" width="2" height="62" fill="#20a7e8"/>
+  <text x="265" y="57" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#ffffff">CONSTRUCTION</text>
+  <text x="265" y="82" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#20a7e8">LLC</text>
+</svg>
