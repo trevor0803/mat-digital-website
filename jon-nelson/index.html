@@ -244,12 +244,26 @@
       .panelClose{top:16px;right:14px;padding:11px 13px}
     }
     @media(prefers-reduced-motion:reduce){#estimate,.panelScrim,.panelClose{transition:none}}
+
+    /* --- persistent CTA --- */
+    .stickyCta{position:fixed;right:24px;bottom:24px;z-index:60;display:inline-block;
+      background:#eee9e1;color:#111;text-decoration:none;padding:17px 26px;
+      font:600 11px/1 var(--s);letter-spacing:.16em;text-transform:uppercase;
+      box-shadow:0 14px 38px rgba(0,0,0,.5);transition:background .2s,color .2s}
+    .stickyCta:hover{background:#fff}
+    #estimate:target ~ .stickyCta{opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+    .artistCopy .cta{margin-top:30px}
+    .cta.ctaLight{background:#eee9e1;color:#111}
+    .cta.ctaLight:hover{background:#fff}
+    @media(max-width:760px){
+      .stickyCta{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));text-align:center;padding:16px}
+    }
   </style>
 </head>
 <body>
   <header class="nav">
     <a class="brand" href="#top"><span>JON</span><span>NELSON</span></a>
-    <div class="navright"><a href="#work">Work</a><a href="#artist">Artist</a><a href="#consult">Consult</a><a class="applyLink" href="#estimate">Apply</a></div>
+    <div class="navright"><a href="#work">Work</a><a href="#artist">Artist</a><a href="#consult">Consult</a><a class="applyLink" href="#estimate">Request a consult</a></div>
   </header>
 
   <main id="top">
@@ -263,7 +277,7 @@
           <div>
             <div class="role">CUSTOM TATTOO ARTIST</div>
             <p class="lead">Custom black &amp; grey, dark fantasy and realism — designed by Jon Nelson for the person wearing it.</p>
-            <a class="cta" href="#estimate">Request a consultation</a>
+            <a class="cta" href="#estimate">Request a consult</a>
           </div>
           <div class="proof"><div><strong>15+</strong><span>YEARS TATTOOING</span></div><div><strong>1.2M+</strong><span>TIKTOK</span></div><div><strong>619K+</strong><span>INSTAGRAM</span></div></div>
         </div>
@@ -310,12 +324,12 @@
         <figure class="piece" tabindex="0" role="button" aria-label="Open Castle Feet tattoo full screen"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358025dc3c8568f2e24f0_Castle-feet.jpg" alt="Castle Feet tattoo by Jon Nelson" loading="lazy" decoding="async"><figcaption class="cap">Castle Feet</figcaption></figure>
         <figure class="piece" tabindex="0" role="button" aria-label="Open Boston Polaroid tattoo full screen"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670357ccca0f8a4f5cfd2fe3_Boston-polaroid.jpg" alt="Boston Polaroid tattoo by Jon Nelson" loading="lazy" decoding="async"><figcaption class="cap">Boston Polaroid</figcaption></figure>
       </div>
-      <div class="galleryCta"><strong>See something that hits?<br>Show Jon your idea.</strong><a class="cta" href="#estimate">Request a consultation</a></div>
+      <div class="galleryCta"><strong>See something that hits?<br>Show Jon your idea.</strong><a class="cta" href="#estimate">Request a consult</a></div>
     </section>
 
     <section class="artist" id="artist">
       <div class="artistPhoto"><img src="https://www.sinners-expo.com/assets/images/artists/jon-nelson.webp" alt="Portrait of tattoo artist Jon Nelson" loading="lazy"></div>
-      <div class="artistCopy"><div class="idx">02 — THE ARTIST</div><h2>JON<br>NELSON.</h2><p>New Jersey-born and Florida-based, Jon is known for black &amp; grey realism, dark fantasy, architectural detail and large-scale custom work.</p><p>His work is followed by more than 1.2 million people on TikTok and over 619,000 on Instagram, but every tattoo is still built one client at a time.</p><div class="facts"><div><strong>15+</strong><span>YEARS</span></div><div><strong>1K+</strong><span>UNIQUE DESIGNS</span></div><div><strong>100%</strong><span>CUSTOM</span></div></div></div>
+      <div class="artistCopy"><div class="idx">02 — THE ARTIST</div><h2>JON<br>NELSON.</h2><p>New Jersey-born and Florida-based, Jon is known for black &amp; grey realism, dark fantasy, architectural detail and large-scale custom work.</p><p>His work is followed by more than 1.2 million people on TikTok and over 619,000 on Instagram, but every tattoo is still built one client at a time.</p><div class="facts"><div><strong>15+</strong><span>YEARS</span></div><div><strong>1K+</strong><span>UNIQUE DESIGNS</span></div><div><strong>100%</strong><span>CUSTOM</span></div></div><a class="cta ctaLight" href="#estimate">Request a consult</a></div>
     </section>
 
     <section class="consult" id="consult">
@@ -324,7 +338,7 @@
         <div class="idx">03 — CONSULTATION</div>
         <h2>TALK TO<br>JON BEFORE<br>YOU TRAVEL.</h2>
         <p>Many clients come to Fort Lauderdale from outside Florida. A remote consultation gives you direct time with Jon to review your idea, placement and scale before planning the trip.</p>
-        <a class="cta" href="#estimate">Request a consultation</a>
+        <a class="cta" href="#estimate">Request a consult</a>
 
       </div>
     </section>
@@ -364,6 +378,22 @@
             </section>
 
             <section class="surveyStep">
+              <h3>WHERE ON THE BODY?</h3>
+              <p>Placement changes how a piece is drawn, how long it takes and what it costs. Pick the closest area — you can refine it with Jon on the call.</p>
+              <div class="surveyAnswers">
+                <button class="surveyAnswer" type="button">Arm / full sleeve</button>
+                <button class="surveyAnswer" type="button">Forearm</button>
+                <button class="surveyAnswer" type="button">Hand</button>
+                <button class="surveyAnswer" type="button">Chest</button>
+                <button class="surveyAnswer" type="button">Shoulder / back</button>
+                <button class="surveyAnswer" type="button">Ribs / torso</button>
+                <button class="surveyAnswer" type="button">Leg / thigh / calf</button>
+                <button class="surveyAnswer" type="button">Neck / head</button>
+                <button class="surveyAnswer" type="button">Still deciding</button>
+              </div>
+            </section>
+
+            <section class="surveyStep">
               <h3>TELL US WHERE TO REACH YOU.</h3>
               <p>Give Jon’s team a little context and the best way to reach you.</p>
               <div class="contactGrid">
@@ -371,7 +401,6 @@
                 <label for="lastName">Last name<input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Last name" required></label>
                 <label for="phone">Phone<input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="Mobile number" required></label>
                 <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" placeholder="Email address" required></label>
-                <label class="wide" for="placement">Tattoo placement<input id="placement" name="placement" type="text" placeholder="Arm, forearm, chest, back, ribs, leg…"></label>
                 <label class="wide" for="notes">Special notes (optional)<textarea id="notes" name="notes" rows="4" placeholder="Concept, size, specific details, questions, or anything Jon should know."></textarea></label>
               </div>
               <button class="surveySubmit" type="submit">Send consultation request</button>
@@ -381,6 +410,7 @@
         </div>
   <a class="panelScrim" href="#top" tabindex="-1" aria-hidden="true"></a>
   <a class="panelClose" href="#top">Close &times;</a>
+  <a class="stickyCta" href="#estimate">Request a consult</a>
 
   <div class="surveyDisqualified" hidden>
       <h3>THANK YOU FOR YOUR INTEREST.</h3>
@@ -388,11 +418,11 @@
       <p>Due to increased demand, Jon is currently accepting new clients only when certain project prerequisites are met.</p>
     </div>
 
-    <section class="final"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035992125260b47d02b2b7_Lady-Justice.jpg" alt="Lady Justice tattoo by Jon Nelson" loading="lazy"><div class="finalIn"><div class="idx">04 — START HERE</div><h2>YOUR IDEA.<br>JON'S HAND.</h2><a class="cta" href="#estimate">Get your project in front of Jon</a></div></section>
+    <section class="final"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035992125260b47d02b2b7_Lady-Justice.jpg" alt="Lady Justice tattoo by Jon Nelson" loading="lazy"><div class="finalIn"><div class="idx">04 — START HERE</div><h2>YOUR IDEA.<br>JON'S HAND.</h2><a class="cta" href="#estimate">Request a consult</a></div></section>
   </main>
 
   <footer><span>JON NELSON / FORT LAUDERDALE</span><span><a href="https://www.instagram.com/jonnelson_tattoos/">Instagram</a> · <a href="https://www.tiktok.com/@jonnelson_tattoos">TikTok</a></span></footer>
-  <a class="mobileBar" href="#estimate">Request a consultation</a>
+
 
 
 </body>
