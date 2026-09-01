@@ -162,7 +162,7 @@
       .manifest{padding:26vw 16px}.manifest p{font-size:clamp(46px,15vw,68px)}
       .work{padding:0 0 24vw}.workHead{display:block;padding:0 16px;margin-bottom:14px}.workHead h2{font-size:76px}.workHead p{font-size:14px}
       .galleryMeta{padding:0 16px;margin-bottom:11px}.galleryMeta .desktopHint{display:none}.galleryControls{display:flex}.galleryControl{width:42px;height:42px}
-      .grid{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:16px;padding:3px 16px 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x}
+      .grid{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding:16px;padding:3px 16px 14px;scrollbar-width:none;touch-action:pan-x}
       .grid::-webkit-scrollbar{display:none}
       .piece,.p1,.p2,.p3,.p4,.p5,.p6,.p7,.p8,.p9,.p10,.p11{flex:0 0 calc(100vw - 52px);max-width:calc(100vw - 52px);grid-column:auto;aspect-ratio:.78;margin:0;transform:none;scroll-snap-align:center;scroll-snap-stop:always}
       .piece:after{content:'TAP TO OPEN';opacity:1;transform:none;top:9px;right:9px;background:rgba(0,0,0,.52)}
@@ -224,7 +224,7 @@
     /* --- sliding consultation panel (CSS :target, no JS) --- */
     #estimate{position:fixed;top:0;right:0;bottom:0;width:min(720px,100%);z-index:200;
       background:#eee9e1;color:#111;padding:92px clamp(18px,5vw,60px) 72px;overflow-y:auto;
-      -webkit-overflow-scrolling:touch;max-width:none;margin:0;
+      max-width:none;margin:0;
       transform:translateX(102%);visibility:hidden;
       transition:transform .42s cubic-bezier(.16,1,.3,1),visibility .42s;
       box-shadow:-30px 0 80px rgba(0,0,0,.45)}
@@ -262,53 +262,74 @@
     /* --- CSS-only lightbox (:target, no JS) --- */
     .zoom{display:block;width:100%;height:100%}
     .lbShade,.lbClose,.lbNav,.lbCount{display:none}
-    .piece:target{position:fixed;inset:0;z-index:150;margin:0;aspect-ratio:auto;
+    #gallery .piece:target{position:fixed;inset:0;z-index:150;margin:0;aspect-ratio:auto;
       background:#050505;display:grid;place-items:center;overflow:visible;cursor:default;
       /* on mobile .piece is a scroll-snap carousel slide capped at calc(100vw - 52px);
          a fixed overlay has to shed all of that or it opens 52px short */
       width:auto;max-width:none;min-width:0;flex:none;grid-column:auto;
       transform:none;scroll-snap-align:none;scroll-snap-stop:normal}
-    .piece:target .lbShade{display:block;position:fixed;inset:0;z-index:1}
-    .piece:target .zoom{position:relative;z-index:2;width:auto;height:auto;
+    #gallery .piece:target .lbShade{display:block;position:fixed;inset:0;z-index:1}
+    #gallery .piece:target .zoom{position:relative;z-index:2;width:auto;height:auto;
       max-width:100%;max-height:100svh;display:grid;place-items:center;cursor:zoom-out;padding:58px 68px 78px}
-    .piece:target img{width:auto;height:auto;max-width:100%;max-height:calc(100svh - 136px);
+    #gallery .piece:target img{width:auto;height:auto;max-width:100%;max-height:calc(100svh - 136px);
       object-fit:contain;filter:none;transform:none}
-    .piece:target:hover img{transform:none}
-    .piece:target:after{display:none}
-    .piece:target .cap{position:fixed;left:18px;bottom:max(20px,env(safe-area-inset-bottom));
+    #gallery .piece:target:hover img{transform:none}
+    #gallery .piece:target:after{display:none}
+    #gallery .piece:target .cap{position:fixed;left:18px;bottom:max(20px,env(safe-area-inset-bottom));
       right:auto;z-index:3;color:#f0ede7;font-size:11px;text-shadow:none}
-    .piece:target .lbCount{display:block;position:fixed;right:18px;
+    #gallery .piece:target .lbCount{display:block;position:fixed;right:18px;
       bottom:max(20px,env(safe-area-inset-bottom));z-index:3;color:#aaa49b;
       font-size:10px;letter-spacing:.15em;text-transform:uppercase}
-    .piece:target .lbClose{display:grid;place-items:center;position:fixed;
+    #gallery .piece:target .lbClose{display:grid;place-items:center;position:fixed;
       top:max(14px,env(safe-area-inset-top));right:16px;z-index:4;
       min-width:46px;height:46px;padding:0 12px;border:1px solid rgba(255,255,255,.32);
       background:rgba(0,0,0,.55);color:#fff;text-decoration:none;
       font-size:9px;letter-spacing:.15em;text-transform:uppercase}
-    .piece:target .lbNav{display:grid;place-items:center;position:fixed;top:50%;
+    #gallery .piece:target .lbNav{display:grid;place-items:center;position:fixed;top:50%;
       transform:translateY(-50%);z-index:4;width:52px;height:70px;
       border:1px solid rgba(255,255,255,.26);background:rgba(0,0,0,.48);
       color:#fff;text-decoration:none;font-size:34px;line-height:1}
-    .piece:target .lbPrev{left:14px}
-    .piece:target .lbNext{right:14px}
+    #gallery .piece:target .lbPrev{left:14px}
+    #gallery .piece:target .lbNext{right:14px}
     @media(max-width:760px){
-      .piece:target .zoom{padding:56px 8px 92px}
-      .piece:target img{max-height:calc(100svh - 152px)}
-      .piece:target .lbNav{top:auto;bottom:max(22px,env(safe-area-inset-bottom));
+      #gallery .piece:target .zoom{padding:56px 8px 92px}
+      #gallery .piece:target img{max-height:calc(100svh - 152px)}
+      #gallery .piece:target .lbNav{top:auto;bottom:max(22px,env(safe-area-inset-bottom));
         transform:none;width:48px;height:48px;font-size:30px}
-      .piece:target .cap{left:0;right:0;text-align:center;
+      #gallery .piece:target .cap{left:0;right:0;text-align:center;
         bottom:max(80px,calc(env(safe-area-inset-bottom) + 62px))}
-      .piece:target .lbCount{left:0;right:0;text-align:center;
+      #gallery .piece:target .lbCount{left:0;right:0;text-align:center;
         bottom:max(62px,calc(env(safe-area-inset-bottom) + 44px))}
     }
 
-    .galleryMeta{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    .galleryMeta{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
       margin:0 0 18px;color:#938d85;font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+    .galleryMeta span{white-space:nowrap}
     .galleryMeta .mobileHint{display:none}
     @media(max-width:760px){
-      .galleryMeta{padding:0 16px;margin-bottom:11px}
+      /* the long hint wrapped onto two lines and pushed "36 pieces" into a
+         second column of its own — both have to stay single-line here */
+      .galleryMeta{padding:0 16px;margin-bottom:11px;gap:10px;font-size:8.5px;letter-spacing:.13em}
       .galleryMeta .desktopHint{display:none}
       .galleryMeta .mobileHint{display:inline}
+    }
+
+    @media(min-width:761px){
+      /* desktop: the same sliding gallery as mobile. NOTE: a CSS comment must
+         never sit immediately BEFORE an @media block — the importer's scoper
+         folds it into the at-rule's prelude, the whole block is emitted as an
+         invalid selector, and every rule inside it silently does nothing. */
+      .work .grid{display:flex;grid-template-columns:none;gap:14px;
+        overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
+        padding:3px 0 20px;
+        scrollbar-width:thin;scrollbar-color:var(--a) rgba(255,255,255,.10)}
+      .work .grid .piece{flex:0 0 clamp(260px,25vw,400px);width:auto;max-width:none;
+        grid-column:auto;aspect-ratio:.82;margin:0;scroll-snap-align:start}
+      /* a mouse wheel cannot scroll a horizontal container, so the scrollbar is
+         the only affordance those visitors have — keep it, just make it quiet */
+      .work .grid::-webkit-scrollbar{height:3px}
+      .work .grid::-webkit-scrollbar-track{background:rgba(255,255,255,.10)}
+      .work .grid::-webkit-scrollbar-thumb{background:var(--a)}
     }
   </style>
 </head>
@@ -338,7 +359,7 @@
 
     <section class="work" id="work">
       <div class="workHead"><h2>SELECTED<br>WORK</h2><p>Black &amp; grey realism, dark fantasy, mythology, portraiture and large-scale custom tattoo work.</p></div>
-      <div class="galleryMeta"><span class="desktopHint">Select any image to view it full screen</span><span class="mobileHint">Swipe the gallery · tap any piece to open it</span><span class="galleryTotal">36 pieces</span></div>
+      <div class="galleryMeta"><span class="desktopHint">Drag to browse · click any piece to view it full screen</span><span class="mobileHint">Swipe to browse</span><span class="galleryTotal">36 pieces</span></div>
       <div class="grid" id="gallery" aria-label="Jon Nelson tattoo gallery">
         <figure class="piece" id="p1"><a class="zoom" href="#p1" aria-label="View Zeus tattoo by Jon Nelson full screen"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035af0cdec0bfd099ef252_Zeus.jpg" alt="Zeus tattoo by Jon Nelson" decoding="async"></a><figcaption class="cap">Zeus</figcaption><a class="lbShade" href="#work" aria-label="Close full screen"></a><a class="lbClose" href="#work" aria-label="Close full screen">Close &times;</a><a class="lbNav lbPrev" href="#p36" aria-label="Previous tattoo">&lsaquo;</a><a class="lbNav lbNext" href="#p2" aria-label="Next tattoo">&rsaquo;</a><span class="lbCount">01 / 36</span></figure>
         <figure class="piece" id="p2"><a class="zoom" href="#p2" aria-label="View Wolf Sleeve tattoo by Jon Nelson full screen"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ae302d63e122590d3e3_Wolf-sleeve.jpg" alt="Wolf Sleeve tattoo by Jon Nelson" decoding="async"></a><figcaption class="cap">Wolf Sleeve</figcaption><a class="lbShade" href="#work" aria-label="Close full screen"></a><a class="lbClose" href="#work" aria-label="Close full screen">Close &times;</a><a class="lbNav lbPrev" href="#p1" aria-label="Previous tattoo">&lsaquo;</a><a class="lbNav lbNext" href="#p3" aria-label="Next tattoo">&rsaquo;</a><span class="lbCount">02 / 36</span></figure>
