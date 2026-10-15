@@ -98,6 +98,27 @@ h1,h2,h3{font-family:var(--head);color:var(--ink);margin:0;text-wrap:balance}
 #estimate .fx-consent a{color:var(--blue)}
 #estimate .fx-back{background:none;border:0;color:var(--muted);font:600 14px/1 var(--body);cursor:pointer;padding:8px 0}
 
+
+/* Car browser */
+.hero-from{margin:0 0 18px}
+.hero-from a{display:inline-block;padding:10px 16px;border:1.5px solid var(--gold);border-radius:999px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
+.hero-from b{color:var(--gold)}
+section.cars{padding:88px 0;background:#fff;border-bottom:1px solid var(--line)}
+.car-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.car{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.car img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#dfe2ea}
+.car-body{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}
+.car h3{font-size:19px;font-weight:800;line-height:1.2;margin:0 0 12px}
+.car .low{font-size:13px;color:var(--muted);margin:0}
+.car .price{font:800 32px/1.05 var(--head);color:var(--ink);margin:2px 0 16px}
+.car .price small{font:600 15px/1 var(--body);color:var(--muted)}
+.car .ask{font:700 18px/1.2 var(--head);color:var(--ink);margin:0 0 16px;padding-top:15px}
+.car a.go{margin-top:auto;display:block;text-align:center;padding:14px 10px;border-radius:10px;background:var(--gold);color:var(--night);font:700 14px/1 var(--body);letter-spacing:.4px;text-transform:uppercase;text-decoration:none}
+.car-more{margin:26px 0 0;font-size:17px;color:var(--ink);font-weight:600}
+.car-note{margin:14px 0 0;font-size:13px;line-height:1.6;color:var(--muted);max-width:60em}
+@media(max-width:980px){.car-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){section.cars{padding:56px 0}.car-grid{gap:10px}.car-body{padding:12px 12px 14px}.car h3{font-size:15px;min-height:3.6em;margin-bottom:8px}.car .price{font-size:25px;margin-bottom:12px}.car .ask{font-size:14px;margin-bottom:12px;padding-top:11px}.car a.go{font-size:12px;padding:12px 6px}}
+
 /* Trust strip */
 .strip{background:#fff;border-bottom:1px solid var(--line)}
 .strip-in{display:grid;grid-template-columns:repeat(4,1fr)}
@@ -259,12 +280,13 @@ section.block{padding:88px 0}
         <li>No dealer markups, commissions or surcharges on your payment</li>
         <li>Personal and business leases, handled start to finish by our team</li>
       </ul>
+      <p class="hero-from"><a href="#cars">Browse our cars <b>as low as $288/mo</b> <span aria-hidden="true">&rarr;</span></a></p>
       <p class="hero-call">Rather talk it through? Call <a href="tel:+12156600300">(215) 660-0300</a></p>
     </div>
 
     <div class="survey-wrap" id="estimate">
       <form action="#" method="post">
-        <p class="card-kicker">Free lease quote <span>4 quick questions · about 30 seconds</span></p>
+        <p class="card-kicker">Free lease quote <span>5 quick questions · about 30 seconds</span></p>
         <section class="survey-step">
           <h2>What kind of vehicle are you looking to lease?</h2>
           <div class="options">
@@ -305,8 +327,20 @@ section.block{padding:88px 0}
           <div class="popcard survey-step">
             <h2>Is this lease for you or for your business?</h2>
             <div class="options">
-              <button type="button" popovertarget="stepContact">Personal Lease</button>
-              <button type="button" popovertarget="stepContact">Business Lease</button>
+              <button type="button" popovertarget="stepCredit">Personal Lease</button>
+              <button type="button" popovertarget="stepCredit">Business Lease</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="popstep" id="stepCredit" popover>
+          <div class="popcard survey-step">
+            <h2>How would you rate your credit?</h2>
+            <div class="options">
+              <button type="button" popovertarget="stepContact">Excellent (740+)</button>
+              <button type="button" popovertarget="stepContact">Good (680 to 739)</button>
+              <button type="button" popovertarget="stepContact">Fair (620 to 679)</button>
+              <button type="button" popovertarget="stepContact">Below 620 or Not Sure</button>
             </div>
           </div>
         </section>
@@ -338,6 +372,29 @@ section.block{padding:88px 0}
     <div class="strip-item"><b>$0 down</b><span>No money down at signing, on every deal</span></div>
     <div class="strip-item"><b>Any make</b><span>From Nissan to Bentley, and everything between</span></div>
     <div class="strip-item"><b>Free delivery</b><span>To your driveway, anywhere in Pennsylvania</span></div>
+  </div>
+</section>
+
+<section class="cars" id="cars">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Our cars</span>
+      <h2>Browse the cars we lease.</h2>
+      <p>A look at some of what we deliver. Any make or model is available, so if yours is not here, ask.</p>
+    </div>
+    <div class="car-grid">
+      <div class="car"><img src="assets/car-altima.webp" width="800" height="600" alt="2026 Nissan Altima" loading="lazy"><div class="car-body"><h3>2026 Nissan Altima</h3><p class="low">as low as</p><p class="price">$288<small>/mo</small></p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-x5-50e.webp" width="800" height="600" alt="2026 BMW X5 50e Hybrid" loading="lazy"><div class="car-body"><h3>2026 BMW X5 50e Hybrid</h3><p class="low">as low as</p><p class="price">$989<small>/mo</small></p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-gls450.webp" width="800" height="600" alt="2026 Mercedes-Benz GLS 450" loading="lazy"><div class="car-body"><h3>2026 Mercedes-Benz GLS 450</h3><p class="low">as low as</p><p class="price">$1,049<small>/mo</small></p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-x7.webp" width="800" height="600" alt="2027 BMW X7" loading="lazy"><div class="car-body"><h3>2027 BMW X7</h3><p class="low">as low as</p><p class="price">$1,098<small>/mo</small></p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-range-rover-sport.webp" width="800" height="600" alt="2026 Range Rover Sport" loading="lazy"><div class="car-body"><h3>2026 Range Rover Sport</h3><p class="low">as low as</p><p class="price">$1,239<small>/mo</small></p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-escalade.webp" width="800" height="600" alt="2026 Cadillac Escalade" loading="lazy"><div class="car-body"><h3>2026 Cadillac Escalade</h3><p class="low">as low as</p><p class="price">$1,829<small>/mo</small></p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-gv80.webp" width="800" height="600" alt="2026 Genesis GV80" loading="lazy"><div class="car-body"><h3>2026 Genesis GV80</h3><p class="ask">Ask for pricing</p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-s580.webp" width="800" height="600" alt="2026 Mercedes-Benz S 580" loading="lazy"><div class="car-body"><h3>2026 Mercedes-Benz S 580</h3><p class="ask">Ask for pricing</p><a class="go" href="#estimate">Get in touch</a></div></div>
+      <div class="car"><img src="assets/car-grand-highlander.webp" width="800" height="600" alt="2026 Toyota Grand Highlander" loading="lazy"><div class="car-body"><h3>2026 Toyota Grand Highlander</h3><p class="ask">Ask for pricing</p><a class="go" href="#estimate">Get in touch</a></div></div>
+    </div>
+    <p class="car-more">Don&rsquo;t see yours? We lease any make or model. <a href="#estimate">Get in touch</a> and we will price it.</p>
+    <p class="car-note">Payments shown are $0 down plus tax. First payment, bank fee and registration are due upfront to receive the advertised payment. Programs may require top-tier credit. Terms and mileage vary by vehicle. Vehicle availability is limited. Photos are for illustration; actual trim, color and equipment may differ.</p>
   </div>
 </section>
 
