@@ -138,17 +138,12 @@ section.cars{padding:88px 0;background:#fff;border-bottom:1px solid var(--line)}
 .car.sel{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
 .car.sel button.add{background:var(--ink);border-color:var(--ink);color:#fff}
 .car[hidden]{display:none}
-.pickbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:44;display:flex;align-items:center;gap:14px;max-width:calc(100% - 24px);padding:10px 10px 10px 18px;border-radius:14px;background:var(--night);color:#fff;box-shadow:0 14px 40px rgba(0,0,0,.4)}
-.pickbar[hidden]{display:none}
-.pickbar span{font:600 14px/1.3 var(--body)}
-.pickbar a{flex:none;padding:13px 18px;border-radius:10px;background:var(--gold);color:var(--night);font:700 13px/1 var(--body);letter-spacing:.4px;text-transform:uppercase;text-decoration:none}
 .picked{margin:0 0 14px;padding:12px 14px;border-radius:10px;background:var(--paper);font-size:14px;line-height:1.4;color:var(--ink)}
 .picked[hidden]{display:none}
 .picked b{display:block;font:700 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0 0 8px}
 .picked .chip{display:inline-flex;align-items:center;gap:6px;margin:0 6px 6px 0;padding:6px 6px 6px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:600;font-size:13px}
 .picked .chip button{width:22px;height:22px;border:0;border-radius:50%;background:var(--line);color:var(--ink);cursor:pointer;font-size:14px;line-height:1}
-@media(max-width:760px){.pickbar{bottom:78px}}
-.car-more{margin:26px 0 0;font-size:17px;color:var(--ink);font-weight:600}
+@media(max-width:760px){.car-more{margin:26px 0 0;font-size:17px;color:var(--ink);font-weight:600}
 .car-note{margin:14px 0 0;font-size:13px;line-height:1.6;color:var(--muted);max-width:60em}
 @media(max-width:980px){.car-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){section.cars{padding:56px 0}.car-grid{gap:10px}.car-body{padding:12px 12px 14px}.car h3{font-size:15px;min-height:3.6em;margin-bottom:8px}.car .price{font-size:25px;margin-bottom:12px}.car .ask{font-size:14px;margin-bottom:12px;padding-top:11px}.car a.go{font-size:12px;padding:12px 6px}}
@@ -581,7 +576,6 @@ section.block{padding:88px 0}
   </div>
 </footer>
 
-<div class="pickbar" id="pickbar" hidden><span id="pickCount"></span><a href="#estimate" id="pickGo">Get in touch</a></div>
 <nav class="mbar" aria-label="Quick actions"><a class="m-call" href="tel:+12156600300">Call</a><a class="m-quote" href="#estimate">Free quote</a></nav>
 <script data-fx-keep>
 /* Car browser: type filters, "Add to my list", and the survey note. Written to
