@@ -377,9 +377,18 @@ section.block{padding:88px 0}
             <div class="options">
               <button type="button" popovertarget="stepContact">Excellent (740+)</button>
               <button type="button" popovertarget="stepContact">Good (680 to 739)</button>
-              <button type="button" popovertarget="stepContact">Fair (620 to 679)</button>
-              <button type="button" popovertarget="stepContact">Below 620 or Not Sure</button>
+              <button type="button" popovertarget="stepContact">Fair (600 to 679)</button>
+              <button type="button" popovertarget="stepDq" data-disqualify="true">Below 600</button>
+              <button type="button" popovertarget="stepContact">Not Sure</button>
             </div>
+          </div>
+        </section>
+
+        <section class="popstep surveyDisqualified" id="stepDq" popover>
+          <div class="popcard survey-step">
+            <h2>Thanks for your interest.</h2>
+            <p>Our lease programs need a credit score of 600 or higher, so we are not the right fit just yet. Once your score is up, come back for a free quote. We would be glad to help then.</p>
+            <button type="button" class="submit" popovertarget="stepDq" popovertargetaction="hide">Close</button>
           </div>
         </section>
 
