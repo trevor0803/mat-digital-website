@@ -447,7 +447,7 @@ section.block{padding:88px 0}
       <div class="car" data-t="commercial pickup" data-f="1" data-name="2026 Toyota Tacoma SR"><img src="assets/car-tacoma-sr.webp" width="800" height="600" alt="2026 Toyota Tacoma SR" loading="lazy"><div class="car-body"><span class="tag">Commercial</span><h3>2026 Toyota Tacoma SR</h3><a class="go" href="#estimate" data-pick="2026 Toyota Tacoma SR">Get in touch</a><button type="button" class="add" data-add="2026 Toyota Tacoma SR" aria-pressed="false">+ Add to my list</button></div></div>
       <div class="car" data-t="commercial sedan" data-f="1" data-name="2026 Toyota Camry LE"><img src="assets/car-camry.webp" width="800" height="600" alt="2026 Toyota Camry LE" loading="lazy"><div class="car-body"><span class="tag">Commercial</span><h3>2026 Toyota Camry LE</h3><a class="go" href="#estimate" data-pick="2026 Toyota Camry LE">Get in touch</a><button type="button" class="add" data-add="2026 Toyota Camry LE" aria-pressed="false">+ Add to my list</button></div></div>
     </div>
-    <p class="car-toggle" hidden><button type="button" id="carToggle" hidden>View all cars</button></p>
+    
     <p class="car-more">Don&rsquo;t see yours? We lease any make or model. <a href="#estimate">Get in touch</a> and we will price it.</p>
     <p class="car-note">Programs may require top-tier credit. Vehicle availability is limited. Photos are for illustration; actual trim, color and equipment may differ.</p>
   </div>
@@ -577,7 +577,7 @@ section.block{padding:88px 0}
 <script>
 (function(){
 var g=document.getElementById('carGrid');if(!g)return;
-var cards=[].slice.call(g.querySelectorAll('.car')),tog=document.getElementById('carToggle'),filt='all',picks=[];
+var cards=[].slice.call(g.querySelectorAll('.car')),tog=document.getElementById('carToggle')||document.createElement('button'),filt='all',picks=[];
 var bar=document.getElementById('pickbar'),cnt=document.getElementById('pickCount'),box=document.getElementById('picked'),list=document.getElementById('pickedList'),hid=document.getElementById('carsOfInterest'),note=document.getElementById('vehicleInterest'),auto='';
 g.classList.add('js');
 function layout(){var open=g.classList.contains('open');cards.forEach(function(c){var inF=filt==='all'||(' '+c.getAttribute('data-t')+' ').indexOf(' '+filt+' ')>-1;c.hidden=!inF;});
