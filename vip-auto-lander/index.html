@@ -574,34 +574,45 @@ section.block{padding:88px 0}
 
 <div class="pickbar" id="pickbar" hidden><span id="pickCount"></span><a href="#estimate" id="pickGo">Get in touch</a></div>
 <nav class="mbar" aria-label="Quick actions"><a class="m-call" href="tel:+12156600300">Call</a><a class="m-quote" href="#estimate">Free quote</a></nav>
-<script>
+<script data-fx-keep>
+/* Car browser: type filters, "Add to my list", and the survey note. Written to
+   run either on this page or inside the MAT Factory import (data-fx-keep). */
 (function(){
-var g=document.getElementById('carGrid');if(!g)return;
-var cards=[].slice.call(g.querySelectorAll('.car')),tog=document.getElementById('carToggle')||document.createElement('button'),filt='all',picks=[];
-var bar=document.getElementById('pickbar'),cnt=document.getElementById('pickCount'),box=document.getElementById('picked'),list=document.getElementById('pickedList'),hid=document.getElementById('carsOfInterest'),note=document.getElementById('vehicleInterest'),auto='';
-g.classList.add('js');
-function layout(){var open=g.classList.contains('open');cards.forEach(function(c){var inF=filt==='all'||(' '+c.getAttribute('data-t')+' ').indexOf(' '+filt+' ')>-1;c.hidden=!inF;});
- tog.hidden=filt!=='all';}
-tog.addEventListener('click',function(){var o=g.classList.toggle('open');tog.textContent=o?'Show fewer cars':'View all '+cards.length+' cars';});
-[].forEach.call(document.querySelectorAll('.car-filter button'),function(b){b.addEventListener('click',function(){
- [].forEach.call(document.querySelectorAll('.car-filter button'),function(x){x.classList.remove('on')});b.classList.add('on');filt=b.getAttribute('data-f');
- if(filt!=='all')g.classList.add('open');else g.classList.remove('open');tog.textContent='View all '+cards.length+' cars';layout();});});
+var g=document.getElementById('carGrid');if(!g||g.getAttribute('data-ready'))return;g.setAttribute('data-ready','1');
+var cards=[].slice.call(g.querySelectorAll('.car')),filt='all',picks=[],auto='';
+var bar=document.getElementById('pickbar'),cnt=document.getElementById('pickCount');
+function $(id){return document.getElementById(id);}
 function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+function layout(){cards.forEach(function(c){var inF=filt==='all'||(' '+c.getAttribute('data-t')+' ').indexOf(' '+filt+' ')>-1;c.hidden=!inF;});}
+[].forEach.call(document.querySelectorAll('.car-filter button'),function(b){b.addEventListener('click',function(){
+  [].forEach.call(document.querySelectorAll('.car-filter button'),function(x){x.classList.remove('on')});
+  b.classList.add('on');filt=b.getAttribute('data-f');layout();});});
+/* The note box on the survey's last step. The survey is built by the page's own
+   form or by the factory, so find it by what it is, and fill it the way a
+   person typing would (so the survey sees the change). */
+function note(){return document.querySelector('[data-fx-survey] textarea,#vehicleInterest');}
+function setVal(el,v){var p=Object.getPrototypeOf(el),d=Object.getOwnPropertyDescriptor(p,'value');if(d&&d.set)d.set.call(el,v);else el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));}
+function fillNote(){var n=note();if(!n)return;var txt=picks.length?'Interested in: '+picks.join(', '):'';
+  if(n.value===txt)return;if(!n.value||n.value===auto){setVal(n,txt);auto=txt;}}
 function sync(){
- cards.forEach(function(c){var on=picks.indexOf(c.getAttribute('data-name'))>-1;c.classList.toggle('sel',on);var a=c.querySelector('.add');a.setAttribute('aria-pressed',on);a.textContent=on?'\u2713 On my list':'+ Add to my list';});
- hid.value=picks.join(' | ');
- box.hidden=!picks.length;list.innerHTML=picks.map(function(n){return '<span class="chip">'+esc(n)+'<button type="button" data-rm="'+esc(n)+'" aria-label="Remove '+esc(n)+'">\u00d7</button></span>';}).join('');
- if(note){var txt=picks.length?'Interested in: '+picks.join(', '):'';if(!note.value||note.value===auto){note.value=txt;auto=txt;}}
- bar.hidden=!picks.length;cnt.textContent=picks.length+(picks.length===1?' car':' cars')+' on your list';
+  cards.forEach(function(c){var on=picks.indexOf(c.getAttribute('data-name'))>-1;c.classList.toggle('sel',on);var a=c.querySelector('.add');if(a){a.setAttribute('aria-pressed',on);a.textContent=on?'✓ On my list':'+ Add to my list';}});
+  var hid=$('carsOfInterest');if(hid)hid.value=picks.join(' | ');
+  var box=$('picked'),list=$('pickedList');
+  if(box&&list){box.hidden=!picks.length;list.innerHTML=picks.map(function(n){return '<span class="chip">'+esc(n)+'<button type="button" data-rm="'+esc(n)+'" aria-label="Remove '+esc(n)+'">×</button></span>';}).join('');}
+  if(bar){bar.hidden=!picks.length;}
+  if(cnt)cnt.textContent=picks.length+(picks.length===1?' car':' cars')+' on your list';
+  fillNote();
 }
 function add(n){if(picks.indexOf(n)<0)picks.push(n);sync();}
 function rm(n){picks=picks.filter(function(x){return x!==n});sync();}
 g.addEventListener('click',function(e){
- var go=e.target.closest('[data-pick]');if(go){add(go.getAttribute('data-pick'));return;}
- var ad=e.target.closest('[data-add]');if(ad){var n=ad.getAttribute('data-add');picks.indexOf(n)>-1?rm(n):add(n);}
+  var go=e.target.closest('[data-pick]');if(go){add(go.getAttribute('data-pick'));return;}
+  var ad=e.target.closest('[data-add]');if(ad){var n=ad.getAttribute('data-add');picks.indexOf(n)>-1?rm(n):add(n);}
 });
-list.addEventListener('click',function(e){var r=e.target.closest('[data-rm]');if(r)rm(r.getAttribute('data-rm'));});
-tog.textContent='View all '+cards.length+' cars';layout();sync();
+document.addEventListener('click',function(e){var r=e.target.closest&&e.target.closest('[data-rm]');if(r)rm(r.getAttribute('data-rm'));});
+/* When the survey reaches the note step, fill it in. */
+new MutationObserver(function(){if(picks.length)fillNote();}).observe(document.body,{childList:true,subtree:true});
+layout();sync();
 })();
 </script>
 </body>
